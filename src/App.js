@@ -1,23 +1,37 @@
-import logo from './logo.svg';
+import React, { useRef, useState } from 'react';
 import './App.css';
 
 function App() {
+  const [buttonStyle, setButtonStyle] = useState({});
+  const mainContentsRef = useRef(null);
+
+  //마우스 이동
+  const moveButton = () => {
+    const mainContents = mainContentsRef.current;
+    const maxX = mainContents.clientWidth - 100;
+    const maxY = mainContents.clientHeight - 50;
+    const newX = Math.random() * maxX;
+    const newY = Math.random() * maxY;
+    setButtonStyle({
+      position: 'absolute',
+      left: `${newX}px`,
+      top: `${newY}px`
+    });
+  };
+
+  //버튼 누르면
+  const handleButtonClick = () => {
+    alert('정말 고마워!')
+  };
+
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <h1 className='title'>할거없으면 크리스마스에 만날래?</h1>
+      <div className='main-contents' ref={mainContentsRef}>
+        <button className='no' onClick={handleButtonClick}>응</button>
+        <button className='yes' onMouseOver={moveButton} style={buttonStyle}>아니</button>
+      </div>
     </div>
   );
 }
