@@ -1,70 +1,77 @@
-# Getting Started with Create React App
+## 개발 동기
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+크리스마스인데 오전 6시에 일어나서 코딩애플 강좌좀 보다가 
 
-## Available Scripts
+리액트로 뭐 하나 만들어보고 싶어서 하나 만들었다
 
-In the project directory, you can run:
+절대 크리스마스에 약속이 없어서 만들고 그런거 아니다
 
-### `npm start`
+## 기능
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+![](https://velog.velcdn.com/images/jack0507/post/778ba7ba-a110-47b5-8ffb-53afb7fe18d1/image.png)
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+* 크리스마스에 데이트를 신청하는 웹 사이트이다
 
-### `npm test`
+* 아니 버튼에 마우스를 올리면 버튼이 도망간다
+ 
+ 영상을 보는게 빠를것 같다
+ 
+### 상태, 참조
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+```js
+  const [buttonStyle, setButtonStyle] = useState({});
+  const mainContentsRef = useRef(null);
+```
 
-### `npm run build`
+* buttonStyle state를 만들어서 버튼의 상태를 만들었다
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+* mainContentsRef의 Ref를 만들어서 참조를 만들었다
+ 
+  이 참조는 main-contents 클래스를 가진 div 요소를 가리킨다
+  
+### 함수
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+```js
+  const moveButton = () => {
+    const mainContents = mainContentsRef.current;
+    const maxX = mainContents.clientWidth - 100;
+    const maxY = mainContents.clientHeight - 50;
+    const newX = Math.random() * maxX;
+    const newY = Math.random() * maxY;
+    setButtonStyle({
+      position: 'absolute',
+      left: `${newX}px`,
+      top: `${newY}px`
+    });
+  };
+```
+* 버튼을 움직이는 함수이다
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+* x와 y의 최대 값은 mainContents의 너비와 높이이며, 그 안에서 랜덤한 값의 좌표로 이동한다
 
-### `npm run eject`
+```js
+  const handleButtonClick = () => {
+    alert('정말 고마워!')
+  };
+```
+* 버튼을 누르면 정말 고마워 라는 알림창이 나온다
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+### 렌더링
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+```html
+    <div className="App">
+      <h1 className='title'>할거없으면 크리스마스에 만날래?</h1>
+      <div className='main-contents' ref={mainContentsRef}>
+        <button className='no' onClick={handleButtonClick}>응</button>
+        <button className='yes' onMouseOver={moveButton} style={buttonStyle}>아니</button>
+      </div>
+    </div>
+```
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+* 두 버튼과 제목을 렌더링한다
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+## 작동 영상 & 깃허브 링크
 
-## Learn More
+https://youtu.be/mZGMhmLhq4U?si=w6F7b5A2hYkLT-yj
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+https://github.com/JeongHyck06/PlsDateMe
