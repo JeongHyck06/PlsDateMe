@@ -21,7 +21,7 @@ function App() {
 
   //버튼 누르면
   const handleButtonClick = () => {
-    alert('정말 고마워!')
+    alert('정말 고마워!');
   };
 
 
